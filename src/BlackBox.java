@@ -19,4 +19,5 @@ public class BlackBox {
     public void setIntegerHashSet(TreeSet<Integer> integerHashSet) {
         this.integerHashSet = integerHashSet;
     }
+
 }

@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class HW30MainClass {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         BlackBox blackBox = new BlackBox();
 
@@ -24,17 +24,40 @@ public class HW30MainClass {
             }
             System.out.println(blackBox.getIntegerHashSet());
 
+
             // Searching for number in the set
-            while (true) {
-                System.out.println("What number do you want to find?");
-                blackBox.setK(Integer.parseInt(reader.readLine()));
-                ArrayList<Integer> integerArrayList = new ArrayList<>(blackBox.getIntegerHashSet());
-                if (blackBox.getIntegerHashSet().contains(blackBox.getK())) {
-                    System.out.println("The position of " + blackBox.getK() + " is #" +
-                            (integerArrayList.indexOf(blackBox.getK()) + 1) + " in the sorted set.");
+            System.out.println("What number do you want to find?");
+            blackBox.setK(Integer.parseInt(reader.readLine()));
+            ArrayList<Integer> integerArrayList = new ArrayList<>(blackBox.getIntegerHashSet());
+            if (blackBox.getIntegerHashSet().contains(blackBox.getK())) {
+                System.out.println("The position of " + blackBox.getK() + " is #" +
+                        (integerArrayList.indexOf(blackBox.getK()) + 1) + " in the sorted set.");
+            } else {
+                System.out.println("Provided number wasn't found in the set.");
+            }
+
+            // Summarise neighboring elements
+            System.out.println("\nSummarising neighboring elements.");
+            System.out.println("Initial: " + blackBox.getIntegerHashSet());
+            int a = 0;
+            int b = 1;
+            while (integerArrayList.size() != 1) {
+                if (a > integerArrayList.size()) {
                     break;
                 } else {
-                    System.out.println("Provided number wasn't found in the set.");
+                    if (b > integerArrayList.size() - 1) {
+                        a = 0;
+                        b = 1;
+                    } else {
+                        int sum = integerArrayList.get(a) + integerArrayList.get(b);
+                        integerArrayList.set(a, sum);
+                        integerArrayList.remove(b);
+                        a++;
+                        b++;
+                        System.out.println(integerArrayList);
+                        integerArrayList.trimToSize();
+                    }
+                    integerArrayList.iterator();
                 }
             }
         } catch (Exception exception) {
